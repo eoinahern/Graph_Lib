@@ -12,7 +12,7 @@ import com.example.eoin_pc.graphing_library.R;
 /**
  * Created by eoin_pc on 28/09/2016.
  */
-public  class BaseLinesGraph extends View {
+public abstract  class BaseLinesGraph extends View {
 
     protected float[] xcoords;
     protected float[] ycoords;
@@ -99,7 +99,7 @@ public  class BaseLinesGraph extends View {
     }
 
 
-    //public abstract void setDivisions(float xmin, float xmax, float ymin, float ymax );
-    //public abstract void setCoords(double[] x, double[] y);
-    //public abstract void Drawpoints();
+    public abstract void setScale(float xmin, float xmax, float ymin, float ymax );
+    public abstract void setCoords(float[] x, float[] y);
+    public abstract void Drawpoints();
 }

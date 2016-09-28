@@ -10,7 +10,8 @@ import android.util.AttributeSet;
 public class LineGraph extends BaseLinesGraph {
 
 
-
+    float xpointmin, xpointmax, ypointmin, ypointmax;
+    
     public LineGraph(Context context) {
         super(context);
     }
@@ -29,27 +30,21 @@ public class LineGraph extends BaseLinesGraph {
     {
         super.onDraw(canvas);
 
-
-
+        if(xcoords != null && ycoords != null)
+            Drawpoints();
 
     }
 
-    /*//@Override
-    public void setDivisions(float xmin, float xmax, float ymin, float ymax) {
+    @Override
+    public void setScale(float xmin, float xmax, float ymin, float ymax) {
 
-        this.xmin = xmin;
-        this.xmax = xmax;
-        this.ymin = ymin;
-        this.ymax = ymax;
+        this.xpointmin = xmin;
+        this.xpointmax = xmax;
+        this.ypointmin = ymin;
+        this.ypointmax = ymax;
 
         subdivisionsset = true;
-    }*/
-
-
-
-
-
-
+    }
 
     /**
      * iterate over each point. check coord item outside range.
@@ -59,7 +54,7 @@ public class LineGraph extends BaseLinesGraph {
      * @param y
      */
 
-    //@Override
+    @Override
     public void setCoords(float[] x, float[] y) {
 
         if(!subdivisionsset)
@@ -69,20 +64,28 @@ public class LineGraph extends BaseLinesGraph {
             throw new IllegalArgumentException("point outside bounds!!");
 
 
-
         this.xcoords = x;
         this.ycoords = y;
     }
 
-
-
-
-
+    @Override
     public void Drawpoints() {
 
-
+      convCoordHelper();
+        //draw lines!!!
     }
 
+
+    private void convCoordHelper()
+    {
+        int len = xcoords.length;
+
+        for(int i = 0 ; i < len; i++)
+        {
+            xcoords[i] = convXcoord(xcoords[i]);
+            ycoords[i] = convYcoord(ycoords[i]);
+        }
+    }
 
     /**
      * convert X coord value to correspond to

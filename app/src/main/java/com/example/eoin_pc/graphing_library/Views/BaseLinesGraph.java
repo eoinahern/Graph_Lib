@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.example.eoin_pc.graphing_library.R;
@@ -18,7 +17,7 @@ public  class BaseLinesGraph extends View {
     protected float[] xcoords;
     protected float[] ycoords;
     protected float xmin, ymin, xmax, ymax;
-    float xcanvas, ycanvas;
+    protected float xcanvas, ycanvas, xlen, ylen;
     protected boolean subdivisionsset = false;
     protected Paint graphpaint;
     private Context cont ;
@@ -62,14 +61,11 @@ public  class BaseLinesGraph extends View {
         ymax = ypercent * 10f;
 
 
-        //draw points representing bounds of the graph
+        ylen = ymin - ymax;
+        xlen = xmax - xmin;
 
-        canvas.drawPoint( xmin,  ymax, graphpaint);
-        canvas.drawPoint( xmin,  ymin, graphpaint);
-        canvas.drawPoint( xmax,  ymax, graphpaint);
-        canvas.drawPoint( xmax,  ymax, graphpaint);
-        canvas.drawPoint( xmax,  ymin, graphpaint);
-
+        canvas.drawLine(xmin, ymax, xmin, ymin, graphpaint);
+        canvas.drawLine(xmin, ymin, xmax, ymin, graphpaint);
 
     }
 
@@ -78,7 +74,7 @@ public  class BaseLinesGraph extends View {
         graphpaint = new Paint();
         graphpaint.setColor(ContextCompat.getColor(cont, R.color.middleGrey));
         graphpaint.setStyle(Paint.Style.FILL);
-        graphpaint.setStrokeWidth(20f);
+        graphpaint.setStrokeWidth(10f);
     }
 
     /**

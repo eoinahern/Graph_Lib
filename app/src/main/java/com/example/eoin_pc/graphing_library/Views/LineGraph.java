@@ -28,9 +28,13 @@ public class LineGraph extends BaseLinesGraph {
     public void onDraw(Canvas canvas)
     {
         super.onDraw(canvas);
+
+
+
+
     }
 
-    //@Override
+    /*//@Override
     public void setDivisions(float xmin, float xmax, float ymin, float ymax) {
 
         this.xmin = xmin;
@@ -39,7 +43,12 @@ public class LineGraph extends BaseLinesGraph {
         this.ymax = ymax;
 
         subdivisionsset = true;
-    }
+    }*/
+
+
+
+
+
 
 
     /**
@@ -65,10 +74,38 @@ public class LineGraph extends BaseLinesGraph {
         this.ycoords = y;
     }
 
-    //@Override
+
+
+
+
     public void Drawpoints() {
 
 
+    }
+
+
+    /**
+     * convert X coord value to correspond to
+     * the position it should be on the canvas
+     *
+     **/
+
+    private float convXcoord(float xin)
+    {
+        return 0f;
+
+    }
+
+    /**
+     * convert Y coord value to correspond to
+     * the position it should be on the canvas
+     *
+     **/
+
+
+    private float convYcoord(float yin)
+    {
+        return 0f;
     }
 
 

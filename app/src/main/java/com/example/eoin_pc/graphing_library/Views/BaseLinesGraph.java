@@ -10,11 +10,9 @@ import android.view.View;
  */
 public  abstract class BaseLinesGraph extends View {
 
-
-
-    protected int[] xcoords;
-    protected int[] ycoords;
-    protected int xmin, ymin, xmax, ymax, xcanvas, ycanvas;
+    protected double[] xcoords;
+    protected double[] ycoords;
+    protected double xmin, ymin, xmax, ymax, xcanvas, ycanvas;
     protected boolean subdivisionsset = false;
 
 
@@ -35,8 +33,22 @@ public  abstract class BaseLinesGraph extends View {
     public void onDraw(Canvas canvas)
     {
 
-        //calculateCanvasSize();
-        //Drawpoints();
+        //canvas size
+
+        xcanvas = Double.valueOf(canvas.getWidth());
+        ycanvas =  Double.valueOf(canvas.getHeight());
+
+
+        double ypercent = xcanvas / 100.00;
+        double xpercent = ycanvas / 100.00;
+
+
+
+        //draw circle at point 10% in on x-axis, 10% in on y-axis.
+
+
+
+
 
 
     }
@@ -61,12 +73,10 @@ public  abstract class BaseLinesGraph extends View {
     private void calculateCanvasSize()
     {
 
-
-
     }
 
 
-    public abstract void setDivisions(int xmin, int xmax, int ymin, int ymax );
-    public abstract void setCoords(int[] x, int[] y);
+    public abstract void setDivisions(double xmin, double xmax, double ymin, double ymax );
+    public abstract void setCoords(double[] x, double[] y);
     public abstract void Drawpoints();
 }

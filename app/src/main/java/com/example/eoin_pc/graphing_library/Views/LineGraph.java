@@ -31,7 +31,7 @@ public class LineGraph extends BaseLinesGraph {
     }
 
     @Override
-    public void setDivisions(int xmin, int xmax, int ymin, int ymax) {
+    public void setDivisions(double xmin, double xmax, double ymin, double ymax) {
 
         this.xmin = xmin;
         this.xmax = xmax;
@@ -51,7 +51,7 @@ public class LineGraph extends BaseLinesGraph {
      */
 
     @Override
-    public void setCoords(int[] x, int[] y) {
+    public void setCoords(double[] x, double[] y) {
 
         if(!subdivisionsset)
             throw new IllegalArgumentException("subdivisions must be set!!!");
@@ -74,7 +74,7 @@ public class LineGraph extends BaseLinesGraph {
 
 
 
-    private boolean checkWithinBounds(int[] x, int[] y)
+    private boolean checkWithinBounds(double[] x, double[] y)
     {
         if(!checkBoundsHelper(x, xmin, xmax))
             return false;
@@ -85,9 +85,9 @@ public class LineGraph extends BaseLinesGraph {
         return true;
     }
 
-    private boolean checkBoundsHelper(int[] coords, int min, int max)
+    private boolean checkBoundsHelper(double[] coords, double min, double max)
     {
-        for(int num : coords)
+        for(double num : coords)
         {
             if(num < min || num > max )
                 return false;

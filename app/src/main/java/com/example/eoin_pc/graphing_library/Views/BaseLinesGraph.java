@@ -20,6 +20,7 @@ public abstract  class BaseLinesGraph extends View {
     protected float xcanvas, ycanvas, xlen, ylen;
     protected boolean subdivisionsset = false;
     protected Paint graphpaint;
+    protected float ypercent;
     private Context cont ;
 
 
@@ -50,7 +51,7 @@ public abstract  class BaseLinesGraph extends View {
         xcanvas = canvas.getWidth();
         ycanvas =  canvas.getHeight();
 
-        float ypercent = ycanvas / 100f;
+        ypercent = ycanvas / 100f;
         float xpercent = xcanvas / 100f;
 
         //draw circle at point 10% in on x-axis, 10% in on y-axis.
@@ -101,5 +102,5 @@ public abstract  class BaseLinesGraph extends View {
 
     public abstract void setScale(float xmin, float xmax, float ymin, float ymax );
     public abstract void setCoords(float[] x, float[] y);
-    public abstract void Drawpoints();
+    public abstract void Drawpoints(Canvas canvas);
 }

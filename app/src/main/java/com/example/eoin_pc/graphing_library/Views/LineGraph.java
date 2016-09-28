@@ -3,6 +3,7 @@ package com.example.eoin_pc.graphing_library.Views;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 
 /**
  * Created by eoin_pc on 28/09/2016.
@@ -10,7 +11,9 @@ import android.util.AttributeSet;
 public class LineGraph extends BaseLinesGraph {
 
 
-    float xpointmin, xpointmax, ypointmin, ypointmax;
+    float xpointmin, xpointmax, ypointmin, ypointmax,
+            xsublen , ysublen, yratio, xratio ;
+
     
     public LineGraph(Context context) {
         super(context);
@@ -30,9 +33,25 @@ public class LineGraph extends BaseLinesGraph {
     {
         super.onDraw(canvas);
 
-        if(xcoords != null && ycoords != null)
-            Drawpoints();
+        if(subdivisionsset) {
+            calcSubLengths();
+            calcRatio();
+        }
 
+        if(xcoords != null && ycoords != null)
+            Drawpoints(canvas);
+
+    }
+
+    private void calcSubLengths() {
+         xsublen = xpointmax - xpointmin;
+         ysublen = ypointmax - ypointmin;
+    }
+
+    private void calcRatio()
+    {
+        xratio = xlen / xsublen;
+        yratio = ylen / ysublen;
     }
 
     @Override
@@ -66,13 +85,36 @@ public class LineGraph extends BaseLinesGraph {
 
         this.xcoords = x;
         this.ycoords = y;
+
+
+        invalidate();
     }
 
     @Override
-    public void Drawpoints() {
+    public void Drawpoints(Canvas canvas) {
 
-      convCoordHelper();
-        //draw lines!!!
+        int len = xcoords.length;
+
+        if(len < 2)
+            return;
+
+        convCoordHelper();
+
+        for(int i = 0; i <  len -1; i++)
+        {
+            canvas.drawLine(xcoords[i],ycoords[i],
+                    xcoords[i+1], ycoords[i +1], graphpaint);
+
+            drawPoint(canvas, xcoords[i],ycoords[i]);
+            drawPoint(canvas, xcoords[i + 1],ycoords[i + 1]);
+        }
+
+
+    }
+
+    private void drawPoint(Canvas canvas, float x, float y)
+    {
+        canvas.drawCircle(x,y, 12f, graphpaint);
     }
 
 
@@ -95,8 +137,7 @@ public class LineGraph extends BaseLinesGraph {
 
     private float convXcoord(float xin)
     {
-        return 0f;
-
+        return (xin * xratio)  + xmin;
     }
 
     /**
@@ -108,24 +149,28 @@ public class LineGraph extends BaseLinesGraph {
 
     private float convYcoord(float yin)
     {
-        return 0f;
+        return  ymin -  (yin * yratio);
     }
 
 
     private boolean checkWithinBounds(float[] x, float[] y)
     {
-        if(!checkBoundsHelper(x, xmin, xmax))
+        if(!checkBoundsHelper(x, xpointmin, xpointmax)) {
+            Log.d("x ", "out of bounds");
             return false;
+        }
 
-        if(!checkBoundsHelper(y, ymin, ymax))
+        if(!checkBoundsHelper(y, ypointmin, ypointmax)) {
+            Log.d("y", "out of bounds");
             return false;
+        }
 
         return true;
     }
 
     private boolean checkBoundsHelper(float[] coords, float min, float max)
     {
-        for(double num : coords)
+        for(float num : coords)
         {
             if(num < min || num > max )
                 return false;

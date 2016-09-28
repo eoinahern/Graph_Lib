@@ -30,7 +30,7 @@ public class LineGraph extends BaseLinesGraph {
         super.onDraw(canvas);
     }
 
-    @Override
+    //@Override
     public void setDivisions(double xmin, double xmax, double ymin, double ymax) {
 
         this.xmin = xmin;
@@ -50,7 +50,7 @@ public class LineGraph extends BaseLinesGraph {
      * @param y
      */
 
-    @Override
+    //@Override
     public void setCoords(double[] x, double[] y) {
 
         if(!subdivisionsset)
@@ -65,13 +65,11 @@ public class LineGraph extends BaseLinesGraph {
         this.ycoords = y;
     }
 
-    @Override
+    //@Override
     public void Drawpoints() {
 
 
     }
-
-
 
 
     private boolean checkWithinBounds(double[] x, double[] y)

@@ -19,9 +19,10 @@ public abstract  class BaseLinesGraph extends View {
     protected float xmin, ymin, xmax, ymax;
     protected float xcanvas, ycanvas, xlen, ylen;
     protected boolean subdivisionsset = false;
-    protected Paint graphpaint;
+    protected Paint graphpaint, textpaint;
     protected float ypercent;
     private Context cont ;
+    private String y_label, x_label;
 
 
     public BaseLinesGraph(Context context) {
@@ -70,12 +71,21 @@ public abstract  class BaseLinesGraph extends View {
 
     }
 
+    protected void drawLabels(Canvas canvas)
+    { if(x_label == null || y_label == null) return;
+        canvas.drawText(x_label, ( xmax / 2) , ymin * (ypercent * 5) , textpaint);
+        canvas.drawText(x_label, ( xmin * 2) , ymin * (ypercent * 5) , textpaint); }
+
     public void initPaint()
     {
         graphpaint = new Paint();
         graphpaint.setColor(ContextCompat.getColor(cont, R.color.middleGrey));
         graphpaint.setStyle(Paint.Style.FILL);
         graphpaint.setStrokeWidth(10f);
+
+        graphpaint.setStyle(Paint.Style.FILL); graphpaint.setStrokeWidth(4f);
+        textpaint = new Paint(); textpaint.setColor(ContextCompat.getColor(cont, R.color.lightGrey));
+        textpaint.setStyle(Paint.Style.FILL); textpaint.setStrokeWidth(5f); textpaint.setTextSize(40f);
     }
 
     /**
@@ -104,3 +114,6 @@ public abstract  class BaseLinesGraph extends View {
     public abstract void setCoords(float[] x, float[] y);
     public abstract void Drawpoints(Canvas canvas);
 }
+
+
+  
